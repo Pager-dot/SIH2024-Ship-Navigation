@@ -107,27 +107,22 @@ best_route = min(population, key=lambda route: fitness(route))
 root = TK.Tk()
 root.title("Genetic Algorithm Visualization")
 
-# Create Notebook (tabs)
-notebook = ttk.Notebook(root)
-notebook.pack(fill='both', expand=True)
-
-# Create a frame for the graph tab
-graph_frame = TK.Frame(notebook)
-notebook.add(graph_frame, text='Graph')
+# Create a frame for the graph and input
+main_frame = TK.Frame(root)
+main_frame.pack(fill='both', expand=True)
 
 # Create Matplotlib figure and axis
 fig, ax = plt.subplots(figsize=(10, 8))
 
 # Embed the Matplotlib figure into the Tkinter window
-canvas = FigureCanvasTkAgg(fig, master=graph_frame)
+canvas = FigureCanvasTkAgg(fig, master=main_frame)
 canvas.draw()
-canvas.get_tk_widget().pack(fill='both', expand=True)
-
-# Create a frame for the danger zone input tab
-input_frame = TK.Frame(notebook)
-notebook.add(input_frame, text='Add Danger Zone')
+canvas.get_tk_widget().pack(side=TK.LEFT, fill='both', expand=True)
 
 # Input fields for danger zone coordinates and radius
+input_frame = TK.Frame(main_frame)
+input_frame.pack(side=TK.LEFT, padx=20)
+
 TK.Label(input_frame, text="X Coordinate:").grid(row=0, column=0, padx=5, pady=5)
 x_entry = TK.Entry(input_frame)
 x_entry.grid(row=0, column=1, padx=5, pady=5)
@@ -147,8 +142,8 @@ add_button.grid(row=3, columnspan=2, pady=10)
 undo_button = TK.Button(input_frame, text="Undo Last Danger Zone", command=undo_danger_zone)
 undo_button.grid(row=4, columnspan=2, pady=10)
 
-#exit
-exit_button = TK.Button(root, text="Exit", command=root.destroy) 
+# Exit button
+exit_button = TK.Button(root, text="Exit", command=root.destroy)
 exit_button.pack(pady=20)
 
 # Initialize graph
